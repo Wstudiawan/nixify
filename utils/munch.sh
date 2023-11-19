@@ -36,7 +36,7 @@ fi
 
 device="munch"
 # test_channel="-1001410447029"   # group
-test_channel="-1001366565777" # channel
+test_channel="-1001421078455" # channel
 # test_channel="-1001356262990"      # test channel
 
 function tg() {
@@ -49,11 +49,11 @@ function tg() {
 
     if [ "$action" == "s" ]; then
         local message_response=$(curl --request POST \
-            --url "https://api.telegram.org/bot${BOT_API_KEY}/sendMessage" \
+            --url "https://api.telegram.org/bot1446507242:AAFivf422Yvh3CL7y98TJmxV1KgyKByuPzM/sendMessage" \
             --data "disable_web_page_preview=true" \
             --data "disable_notification=true" \
             --data "parse_mode=MarkdownV2" \
-            --data "chat_id=${CHAT_ID}" \
+            --data "chat_id=-1001421078455" \
             --data text="$text")
 
         if
@@ -78,12 +78,12 @@ function tg() {
         
         if [ -n "$text" ]; then
             local message_response=$(curl -s --request POST \
-            --url "https://api.telegram.org/bot${BOT_API_KEY}/editMessageText" \
+            --url "https://api.telegram.org/bot1446507242:AAFivf422Yvh3CL7y98TJmxV1KgyKByuPzM/editMessageText" \
             --data text="$text" \
             --data "disable_web_page_preview=true" \
             --data "disable_notification=true" \
             --data "parse_mode=MarkdownV2" \
-            --data "chat_id=${CHAT_ID}" \
+            --data "chat_id=-1001421078455" \
             --data "message_id=${last_message_id}")
 
             last_message_id=$(echo $message_response | jq .result.message_id)
@@ -95,16 +95,16 @@ function tg() {
         fi
 
         curl --request POST \
-            --url "https://api.telegram.org/bot${BOT_API_KEY}/deleteMessage" \
-            --data "chat_id=${CHAT_ID}" \
+            --url "https://api.telegram.org/bot1446507242:AAFivf422Yvh3CL7y98TJmxV1KgyKByuPzM/deleteMessage" \
+            --data "chat_id=-1001421078455" \
             --data "message_id=${last_message_id}"
 
         last_message_id=""
     elif [ "$action" == "doc" ]; then
         if [ -n "$doc_path" ]; then
             curl -F document=@"$doc_path" \
-                "https://api.telegram.org/bot${BOT_API_KEY}/sendDocument" \
-                -F chat_id="$CHAT_ID" -F caption="$doc_caption" -F "parse_mode=MarkdownV2"  -o /dev/null
+                "https://api.telegram.org/bot1446507242:AAFivf422Yvh3CL7y98TJmxV1KgyKByuPzM/sendDocument" \
+                -F chat_id="-1001421078455" -F caption="$doc_caption" -F "parse_mode=MarkdownV2"  -o /dev/null
         fi
     else
         echo "Invalid action: $action"

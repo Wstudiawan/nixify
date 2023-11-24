@@ -122,7 +122,7 @@ if [ -d "$MAIN/clang" ]; then
     log ""
 else
     log "Downloading AOSP Clang 17.0.3" 32 1
-    curl https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r498229.tar.gz -o "aosp-clang.tar.gz"
+    curl https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r498229b.tar.gz -o "aosp-clang.tar.gz"
     mkdir "$MAIN"/clang && tar -xf aosp-clang.tar.gz -C "$MAIN"/clang && rm -rf aosp-clang.tar.gz
 fi
 
@@ -149,7 +149,8 @@ log "******************************************" 33 1
 log "*          Making munch_defconfig        *" 32 1
 log "******************************************" 33 1
 
-make munch_defconfig O=out LLVM=1 \
+make munch_defconfig O=out \
+                LLVM=1 \
                 ARCH=arm64 \
                 CC=clang \
                 CROSS_COMPILE=aarch64-linux-gnu- \
@@ -160,7 +161,7 @@ make munch_defconfig O=out LLVM=1 \
 log "******************************************" 33 1
 log "*          Compiling Kernel              *" 32 1
 log "******************************************" 33 1
-make -j16 O=out \
+make -j16 munch_defconfig O=out \
     LLVM=1 \
     ARCH=arm64 \
     CC=clang \
